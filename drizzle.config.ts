@@ -5,7 +5,6 @@ export default defineConfig({
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    url:
-      process.env.DATABASE_URL || "postgres://user:password@localhost:5432/mydb"
+    url: Bun.env.DATABASE_URL || "postgres://user:password@localhost:5432/mydb"
   }
 })

@@ -1,8 +1,9 @@
+import jwt from "@elysiajs/jwt"
 import swagger from "@elysiajs/swagger"
 import { Elysia } from "elysia"
 import pkg from "../package.json"
-import { db } from "./db/connection"
-import { schema } from "./db/schema"
+import { container } from "./container"
+import { authRoutes } from "./routes/auth.route"
 
 const app = new Elysia()
   .use(
@@ -15,10 +16,13 @@ const app = new Elysia()
       }
     })
   )
-  .get("/test-db", async () => {
-    const result = await db.select().from(schema.users)
-    return result
-  })
+  .use(
+    jwt({
+      name: "jwt",
+      secret: Bun.env.JWT_SECRET || "default_secret"
+    })
+  )
+  .use(authRoutes(container))
   .get("/health", () => ({
     status: "ok"
   }))
