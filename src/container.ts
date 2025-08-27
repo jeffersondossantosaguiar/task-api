@@ -1,7 +1,8 @@
-import { db } from "./db/connection"
+import { dbConnection } from "./db/connection"
+import { DbAdapter } from "./db/orm.adapter"
 
 export const container = {
-  db
+  database: DbAdapter(dbConnection)
 }
 
 export type Container = typeof container

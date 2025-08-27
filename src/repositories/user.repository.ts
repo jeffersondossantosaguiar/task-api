@@ -1,25 +1,8 @@
-import { Database } from "../db/connection"
-import { schema } from "../db/schema"
+import { DatabaseInterface } from "../db/db.interface"
+import { CreateUser } from "../types"
 
-export const UserRepository = (db: Database) => ({
-  register: async ({
-    name,
-    email,
-    password
-  }: {
-    name: string
-    email: string
-    password: string
-  }) => {
-    const [user] = await db
-      .insert(schema.users)
-      .values({
-        email,
-        name,
-        password
-      })
-      .returning()
-
-    return user
+export const UserRepository = (db: DatabaseInterface) => ({
+  register: async (payload: CreateUser) => {
+    await db.createUser(payload)
   }
 })

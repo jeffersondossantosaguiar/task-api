@@ -22,7 +22,7 @@ const app = new Elysia()
       secret: Bun.env.JWT_SECRET || "default_secret"
     })
   )
-  .use(authRoutes(container))
+  .use(authRoutes(container.database))
   .get("/health", () => ({
     status: "ok"
   }))
