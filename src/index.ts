@@ -3,7 +3,7 @@ import swagger from "@elysiajs/swagger"
 import { Elysia } from "elysia"
 import pkg from "../package.json"
 import { container } from "./container"
-import { authRoutes } from "./routes/auth.route"
+import { userRoutes } from "./routes/user.route"
 
 const app = new Elysia()
   .use(
@@ -22,7 +22,7 @@ const app = new Elysia()
       secret: Bun.env.JWT_SECRET || "default_secret"
     })
   )
-  .use(authRoutes(container.database))
+  .use(userRoutes(container.database))
   .get("/health", () => ({
     status: "ok"
   }))

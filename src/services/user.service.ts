@@ -6,8 +6,8 @@ export const UserService = (db: DatabaseInterface) => {
   const repo = UserRepository(db)
 
   return {
-    registerUser: async (payload: CreateUser) => {
-      return repo.register(payload)
+    createUser: async (payload: CreateUser) => {
+      return repo.create(payload)
     }
   }
 }
